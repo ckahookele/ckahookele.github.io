@@ -1,6 +1,6 @@
 /*global $*/
 /*jslint sloppy:true, browser: true*/
-$("h1.page-title").text("Bouncing");
+$("h1.page-title").text("Rikka");
 
 $(window).on('click', function (e) {
     $('img.logo').css({left: e.pageX});
