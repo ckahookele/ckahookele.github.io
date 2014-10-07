@@ -2,15 +2,6 @@
 /*jslint sloppy:true, browser: true*/
 $("h1.page-title").text("Rikka");
 
-$(window).on('click', function (e) {
-    $('img.logo').css({left: e.pageX});
-});
-
-$(window).on('click', function (e) {
-    $('img.logo').css({left: e.pageX,
-                       top: e.pageY});
-});
-
 var vx = Math.random() * 10 - 5;
 var x = $(window).width() / 2;
 
