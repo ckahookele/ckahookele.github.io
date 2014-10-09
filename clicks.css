@@ -10,3 +10,6 @@ img.logo {
     margin-left: -64px;
     margin-top: -64px;
 }
+.rotated {
+    -webkit-transform: rotate(350deg);
+}
