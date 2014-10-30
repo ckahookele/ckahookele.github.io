@@ -4,9 +4,9 @@
 var main = {
     // load all the images and sounds
     preload: function() {
-        game.stage.backgroundColor = '#71a5ef';	  	
+        game.stage.backgroundColor = '#FFFFFF';	  	
         game.load.image('player', 'rikka.jpg');
-        game.load.image('obstacle', 'Sword.jpg');
+        game.load.image('pipe', 'Sword.jpg');
     },
 
     // set up the game
@@ -14,22 +14,26 @@ var main = {
         game.physics.startSystem(Phaser.Physics.ARCADE);
         // create the player using the missionbit image and place it at (100, 245)
         this.player = game.add.sprite(100, 245, 'player');
-        this.obstacle = game.add.sprite(104 , 365, 'obstacle');
-     
-    game.physics.arcade.enable(this.obstacle);
-    game.physics.arcade.enable(this.player);
+   
+        game.physics.arcade.enable(this.player);
+        
+    this.pipes = game.add.group();
+    this.pipes.enableBody = true;
+    this.pipes.createMultiple(20, 'pipe');
+        
     this.player.body.gravity.y = 1000;      
     
     var space = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     space.onDown.add(this.jump, this);
     
+        game.time.events.loop(2000,this.addPipe, this);
     },
 
     // update the state of the game
     update: function() {
         if(this.player.inWorld == false)
             this.restartGame();
-     game.physics.arcade.overlap(this.player,this.obstacle, this.restartGame, null, this);
+     game.physics.arcade.overlap(this.player,this.pipes, this.restartGame, null, this);
     },
   
     // makes the player jump
@@ -38,10 +42,17 @@ var main = {
     },
   
     addPipe: function() {  
-
+        var pipe = this.pipes.getFirstDead();
+        
+        pipe.reset(800,350);
+        
+        pipe.body.velocity.x = -200;
+        
+        pipe.checkWorldBounds = true;
+        pipe.outofBoundsKill = true;
     },
 
-    // resest the state of the game
+    // reset the state of the game
     restartGame: function() {
         game.state.start('default');    
     }
